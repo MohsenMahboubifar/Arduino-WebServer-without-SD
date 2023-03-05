@@ -56,6 +56,7 @@ void loop() {
     if(client.available())
     {
       char ch;
+      bool currentLineIsBlank = false;
       while(client.connected())
       {
         if(client.available())
@@ -64,7 +65,7 @@ void loop() {
           req[req_index++] = ch;
           Serial.print(ch);
         }
-        if(ch=='\n')
+        if(ch=='\n' && currentLineIsBlank)
         {
           if(StrContains(req, "GET /"))
           {
@@ -81,6 +82,14 @@ void loop() {
             client.stop();
             delay(5);
           }
+        }
+        if(ch=='\n')
+        {
+          currentLineIsBlank = true;
+        }
+        else if(ch=='\r')
+        {
+          currentLineIsBlank = false;
         }
       }
     }

@@ -67,7 +67,8 @@ void loop() {
         }
         if(ch=='\n' && currentLineIsBlank)
         {
-          if(StrContains(req, "GET /"))
+          req_index = 0;
+          if(StrContains(req, "GET / "))
           {
             Serial.println("Server is available!");
             Serial.println(millis());
